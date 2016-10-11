@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GreenDaoRxApp</string>
+    <string name="Create_Note">Create Note</string>
+    <string name="no_note">No any note found</string>
+    <string name="title">Title</string>
+    <string name="comment">comment</string>
+    <string name="date">date</string>
+</resources>
