@@ -5,4 +5,5 @@
     <string name="title">Title</string>
     <string name="comment">comment</string>
     <string name="date">date</string>
+    <string name="add">Add</string>
 </resources>

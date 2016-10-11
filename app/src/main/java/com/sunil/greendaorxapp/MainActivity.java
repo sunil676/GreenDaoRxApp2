@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.sunil.greendaorxapp.Manager.NoteManager;
 import com.sunil.greendaorxapp.adapter.NoteAdapter;
 import com.sunil.greendaorxapp.daogen.Note;
+import com.sunil.greendaorxapp.listner.RecyclerItemClickListener;
 
 import java.util.List;
 
@@ -45,21 +46,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        List<Note> list = NoteManager.loadAll(this);
-        if (list== null && list.size()==0){
+        final List<Note> list = NoteManager.loadAll(this);
+        if (list == null && list.size() == 0) {
             no_data_tv.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
-        }else{
+        } else {
             no_data_tv.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             NoteAdapter adapter = new NoteAdapter(this, list);
             recyclerView.setAdapter(adapter);
+            recyclerView.addOnItemTouchListener(
+                    new RecyclerItemClickListener(this, new   RecyclerItemClickListener.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, int position) {
+
+                            Note note = list.get(position);
+                            Intent intent = new Intent(MainActivity.this, NoteDetailActivity.class);
+                            intent.putExtra("Create", true);
+                            intent.putExtra("NoteID", note.getId());
+                            startActivity(intent);
+                        }
+                    })
+            );
 
         }
     }
 
     @OnClick(R.id.button_create)
-    public void createNoteClick(){
-        startActivity(new Intent(MainActivity.this, NoteDetailActivity.class));
+    public void createNoteClick() {
+        Intent intent = new Intent(MainActivity.this, NoteDetailActivity.class);
+        intent.putExtra("Create", true);
+        startActivity(intent);
     }
 }
