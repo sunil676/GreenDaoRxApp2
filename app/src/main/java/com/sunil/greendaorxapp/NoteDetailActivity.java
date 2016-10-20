@@ -1,6 +1,5 @@
 package com.sunil.greendaorxapp;
 
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -11,6 +10,8 @@ import android.widget.EditText;
 import com.sunil.greendaorxapp.Manager.NoteManager;
 import com.sunil.greendaorxapp.daogen.Note;
 import com.sunil.greendaorxapp.util.Utility;
+
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +37,7 @@ public class NoteDetailActivity extends AppCompatActivity {
     @BindView(R.id.description)
     EditText descriptionEditText;
     @BindView(R.id.age)
-    EditText ageEditText;
+    EditText dateEditText;
 
     @BindView(R.id.save)
     Button save;
@@ -60,15 +61,15 @@ public class NoteDetailActivity extends AppCompatActivity {
             save.setText("Save");
             mNote = NoteManager.load(this, noteId);
             if (mNote != null) {
-                titleEditText.setText(mNote.getText());
+                titleEditText.setText(mNote.getTittle());
                 descriptionEditText.setText(mNote.getComment());
-                ageEditText.setText(mNote.getDate() + "");
+                dateEditText.setText(mNote.getNoteDate() + "");
             }
         } else {
             save.setText("Add");
             Calendar c = Calendar.getInstance();
             System.out.println("Current time => " + c.getTime());
-            ageEditText.setText(c.getTime()+"");
+            dateEditText.setText(c.getTime()+"");
         }
     }
 
@@ -80,9 +81,9 @@ public class NoteDetailActivity extends AppCompatActivity {
                 return;
             }else{
                 Note note = new Note();
-                note.setText(titleEditText.getText().toString());
+                note.setTittle(titleEditText.getText().toString());
                 note.setComment(descriptionEditText.getText().toString());
-                note.setText(ageEditText.getText().toString());
+                note.setNoteDate(dateEditText.getText().toString());
                 NoteManager.insertOrReplace(this, note);
                 finish();
             }
@@ -92,23 +93,24 @@ public class NoteDetailActivity extends AppCompatActivity {
             if (!valid()){
                 return;
             }else{
-                mNote.setText(titleEditText.getText().toString());
+                mNote.setTittle(titleEditText.getText().toString());
                 mNote.setComment(descriptionEditText.getText().toString());
-                mNote.setText(ageEditText.getText().toString());
+                mNote.setNoteDate(dateEditText.getText().toString());
                 NoteManager.insertOrReplace(this, mNote);
+                finish();
             }
         }
     }
 
     private boolean valid(){
         boolean isValid;
-        if (!Utility.nullCheck(titleLabelLayout, "Title")){
+        if (Utility.nullCheck(titleLabelLayout, "Title")){
             isValid = false;
         }
-        else if (!Utility.nullCheck(descriptionLabelLayout, "Comment")){
+        else if (Utility.nullCheck(descriptionLabelLayout, "Comment")){
             isValid = false;
         }
-        else if (!Utility.nullCheck(dateLabelLayout, "Date")){
+        else if (Utility.nullCheck(dateLabelLayout, "Date")){
             isValid = false;
         }else{
             isValid = true;

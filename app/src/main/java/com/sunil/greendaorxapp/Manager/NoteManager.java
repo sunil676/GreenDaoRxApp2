@@ -2,6 +2,8 @@ package com.sunil.greendaorxapp.Manager;
 
 import android.content.Context;
 
+import com.sunil.greendaorxapp.MainApplication;
+import com.sunil.greendaorxapp.daogen.DaoSession;
 import com.sunil.greendaorxapp.daogen.Note;
 import com.sunil.greendaorxapp.daogen.NoteDao;
 
@@ -40,7 +42,10 @@ public class NoteManager {
     }
 
     private static NoteDao getNoteDao(Context c) {
-        return getNoteDao(c);
+        // get the note DAO
+        DaoSession daoSession = ((MainApplication) MainApplication.getAppContext()).getDaoSession();
+        NoteDao noteDao = daoSession.getNoteDao();
+        return noteDao ;
     }
 
 

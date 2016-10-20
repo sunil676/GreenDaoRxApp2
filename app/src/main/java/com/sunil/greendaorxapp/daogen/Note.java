@@ -14,11 +14,11 @@ public class Note {
     private Long id;
 
     @NotNull
-    private String text;
+    private String tittle;
     private String comment;
-    private java.util.Date date;
+    private String noteDate;
 
-    @Generated
+    @Generated(hash = 1272611929)
     public Note() {
     }
 
@@ -26,12 +26,12 @@ public class Note {
         this.id = id;
     }
 
-    @Generated
-    public Note(Long id, String text, String comment, java.util.Date date) {
+    @Generated(hash = 656071469)
+    public Note(Long id, @NotNull String tittle, String comment, String noteDate) {
         this.id = id;
-        this.text = text;
+        this.tittle = tittle;
         this.comment = comment;
-        this.date = date;
+        this.noteDate = noteDate;
     }
 
     public Long getId() {
@@ -43,13 +43,13 @@ public class Note {
     }
 
     @NotNull
-    public String getText() {
-        return text;
+    public String getTittle() {
+        return tittle;
     }
 
     /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setText(@NotNull String text) {
-        this.text = text;
+    public void setTittle(@NotNull String tittle) {
+        this.tittle = tittle;
     }
 
     public String getComment() {
@@ -60,12 +60,12 @@ public class Note {
         this.comment = comment;
     }
 
-    public java.util.Date getDate() {
-        return date;
+    public String getNoteDate() {
+        return noteDate;
     }
 
-    public void setDate(java.util.Date date) {
-        this.date = date;
+    public void setNoteDate(String noteDate) {
+        this.noteDate = noteDate;
     }
 
 }

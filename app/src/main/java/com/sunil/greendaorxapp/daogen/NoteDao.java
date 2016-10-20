@@ -23,9 +23,9 @@ public class NoteDao extends AbstractDao<Note, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Text = new Property(1, String.class, "text", false, "TEXT");
+        public final static Property Tittle = new Property(1, String.class, "tittle", false, "TITTLE");
         public final static Property Comment = new Property(2, String.class, "comment", false, "COMMENT");
-        public final static Property Date = new Property(3, java.util.Date.class, "date", false, "DATE");
+        public final static Property NoteDate = new Property(3, String.class, "noteDate", false, "NOTE_DATE");
     }
 
 
@@ -42,9 +42,9 @@ public class NoteDao extends AbstractDao<Note, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"NOTE\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"TEXT\" TEXT NOT NULL ," + // 1: text
+                "\"TITTLE\" TEXT NOT NULL ," + // 1: tittle
                 "\"COMMENT\" TEXT," + // 2: comment
-                "\"DATE\" INTEGER);"); // 3: date
+                "\"NOTE_DATE\" TEXT);"); // 3: noteDate
     }
 
     /** Drops the underlying database table. */
@@ -61,16 +61,16 @@ public class NoteDao extends AbstractDao<Note, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindString(2, entity.getText());
+        stmt.bindString(2, entity.getTittle());
  
         String comment = entity.getComment();
         if (comment != null) {
             stmt.bindString(3, comment);
         }
  
-        java.util.Date date = entity.getDate();
-        if (date != null) {
-            stmt.bindLong(4, date.getTime());
+        String noteDate = entity.getNoteDate();
+        if (noteDate != null) {
+            stmt.bindString(4, noteDate);
         }
     }
 
@@ -82,16 +82,16 @@ public class NoteDao extends AbstractDao<Note, Long> {
         if (id != null) {
             stmt.bindLong(1, id);
         }
-        stmt.bindString(2, entity.getText());
+        stmt.bindString(2, entity.getTittle());
  
         String comment = entity.getComment();
         if (comment != null) {
             stmt.bindString(3, comment);
         }
  
-        java.util.Date date = entity.getDate();
-        if (date != null) {
-            stmt.bindLong(4, date.getTime());
+        String noteDate = entity.getNoteDate();
+        if (noteDate != null) {
+            stmt.bindString(4, noteDate);
         }
     }
 
@@ -104,9 +104,9 @@ public class NoteDao extends AbstractDao<Note, Long> {
     public Note readEntity(Cursor cursor, int offset) {
         Note entity = new Note( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.getString(offset + 1), // text
+            cursor.getString(offset + 1), // tittle
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // comment
-            cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)) // date
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // noteDate
         );
         return entity;
     }
@@ -114,9 +114,9 @@ public class NoteDao extends AbstractDao<Note, Long> {
     @Override
     public void readEntity(Cursor cursor, Note entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setText(cursor.getString(offset + 1));
+        entity.setTittle(cursor.getString(offset + 1));
         entity.setComment(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setDate(cursor.isNull(offset + 3) ? null : new java.util.Date(cursor.getLong(offset + 3)));
+        entity.setNoteDate(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
      }
     
     @Override

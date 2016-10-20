@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                             Note note = list.get(position);
                             Intent intent = new Intent(MainActivity.this, NoteDetailActivity.class);
-                            intent.putExtra("Create", true);
+                            intent.putExtra("Create", false);
                             intent.putExtra("NoteID", note.getId());
                             startActivity(intent);
                         }

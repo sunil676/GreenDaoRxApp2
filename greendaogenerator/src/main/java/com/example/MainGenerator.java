@@ -7,7 +7,7 @@ import org.greenrobot.greendao.generator.Schema;
 public class MainGenerator {
 
     public static void main(String[] args) throws Exception {
-        Schema schema = new Schema(1, "com.sunil.greendaorxapp.daogen");
+        Schema schema = new Schema(3, "com.sunil.greendaorxapp.daogen");
         addNote(schema);
         new DaoGenerator().generateAll(schema, "../GreenDaoRxApp2/app/src/main/java/");
     }
@@ -15,8 +15,8 @@ public class MainGenerator {
     private static void addNote(Schema schema) {
         Entity note = schema.addEntity("Note");
         note.addIdProperty();
-        note.addStringProperty("text").notNull();
+        note.addStringProperty("tittle").notNull();
         note.addStringProperty("comment");
-        note.addDateProperty("date");
+        note.addStringProperty("noteDate");
     }
 }
